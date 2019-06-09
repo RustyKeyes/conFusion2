@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "ng": "ng",
     "start": "npm run ng serve",
     "build": "npm run ng build",
     "test": "npm run ng test",
