@@ -9,16 +9,16 @@
   <!--
       <div fxFlex *ngIf="selectedDish">
   -->
-    <div fxFlex="40" *ngIf="dish">
+    <div fxFlex="40" *ngIf="poop">
       <mat-card>
         <mat-card-header>
           <mat-card-title>
-            <h3>{{dish.name | uppercase}}</h3>
+            <h3>{{poop.name | uppercase}}</h3>
           </mat-card-title>
         </mat-card-header>
-          <img mat-card-image src="{{dish.image}}" alt="{{dish.name}}">
+          <img mat-card-image src="{{poop.image}}" alt="{{poop.name}}">
         <mat-card-content>
-          <p>{{dish.description}}</p>
+          <p>{{poop.description}}</p>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button>LIKE</button>
@@ -27,11 +27,11 @@
       </mat-card>
     </div>
 
-    <div fxFlex="40" *ngIf="dish">
+    <div fxFlex="40" *ngIf="poop">
         <!-- <mat-list rowHeight="200px"> -->
         <mat-list>
           <h3>Comments</h3>
-          <mat-list-item *ngFor="let comment of dish.comments">
+          <mat-list-item *ngFor="let comment of poop.comments">
             <img height="200px" mat-list-avatar src="{{comment.avatar}}" alt="{{comment.author}}">
             <span matLine>{{comment.comment}}</span>
             <span matLine>{{comment.rating}} stars</span>
