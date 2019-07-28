@@ -38,6 +38,8 @@ import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
 
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,10 +60,12 @@ import { LoginComponent } from './login/login.component';
       MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule,
       MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule,
       MatSlideToggleModule, MatToolbarModule, MatListModule, MatGridListModule,
-      MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule, FlexLayoutModule,
+      MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule,
+      FlexLayoutModule, MatDialogModule, MatFormFieldModule,  MatInputModule,
+      MatCheckboxModule,
 
     AppRoutingModule,
-    MatDialogModule
+    FormsModule
   ],
   entryComponents: [
         LoginComponent
