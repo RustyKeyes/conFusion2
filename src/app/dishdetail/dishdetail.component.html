@@ -8,7 +8,7 @@
 
   <div fxFlex="100">
     <div>
-      <h3>{{poop.name | uppercase}}</h3>
+      <h3 *ngIf="poop">{{poop.name | uppercase}}</h3>
       <hr>
     </div>
   </div>

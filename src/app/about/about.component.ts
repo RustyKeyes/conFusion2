@@ -14,12 +14,14 @@ export class AboutComponent implements OnInit
   selectedLeader: Leader;
 
   constructor(
-    private leaderService: LeaderService
+    private leaderservice: LeaderService
   ) { }
 
   ngOnInit()
   {
-    this.leaders = this.leaderService.getLeaders();
+//    this.leaders = this.leaderService.getLeaders();
+    this.leaderservice.getLeaders()
+      .then(leaders => this.leaders = leaders)
   }
 
   onSelect(leader: Leader)
