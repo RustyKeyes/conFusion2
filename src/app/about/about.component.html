@@ -53,8 +53,12 @@
     </mat-card>
   </div>
 
+  <div  style="margin: auto; text-align: center;"  [hidden]="leaders">
+    <h4>Loading . . . Please Wait </h4>
+    <mat-spinner style="margin:0 auto;" ></mat-spinner>
+  </div>
 
-  <div fxFlex>
+  <div fxFlex *ngIf="leaders">
     <mat-list>
       <h2>Corporate Leadership</h2>
       <mat-list-item *ngFor="let leader of leaders">

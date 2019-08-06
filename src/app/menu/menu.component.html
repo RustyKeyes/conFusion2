@@ -1,3 +1,8 @@
+<div  style="margin: auto; text-align: center;"  [hidden]="dishes">
+  <h4>Loading . . . Please Wait </h4>
+  <mat-spinner style="margin:0 auto;" ></mat-spinner>
+</div>
+
 <div class="container"
      fxLayout="column"
      fxLayoutGap="10px">
@@ -9,7 +14,7 @@
     </div>
   </div>
 
-  <div fxFlex>
+  <div fxFlex *ngIf="dishes">
     <mat-grid-list cols="2" rowHeight="200px">
       <mat-grid-tile *ngFor="let nut of dishes" [routerLink]="['/dishdetail', nut.id]">
         <img height="200px" mat-list-avatar src={{nut.image}} alt={{nut.name}}>
