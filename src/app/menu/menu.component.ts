@@ -22,13 +22,14 @@ export class MenuComponent implements OnInit
 
   ngOnInit()
   {
-    this.dishService.getDishes().then(dishes => this.dishes = dishes);
-//  this.dishes = this.dishService.getDishes();
+    this.dishService.getDishes()
+      .subscribe(dishes => this.dishes = dishes);
   }
 
-  onSelect(slurp: Dish)
-  {
-    this.selectedDish = slurp;
-  }
+//  onSelect(slurp: Dish)
+//  {
+//    this.selectedDish = slurp;
+//    console.log("you clicked on a dish");
+//  }
 
 }
