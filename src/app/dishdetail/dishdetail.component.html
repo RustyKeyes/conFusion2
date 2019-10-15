@@ -1,4 +1,4 @@
-<div  style="margin: auto; text-align: center;"  [hidden]="poop">
+<div  style="margin: auto; text-align: center;"  [hidden]="dish">
   <h4>Loading . . . Please Wait </h4>
   <mat-spinner style="margin:0 auto;" ></mat-spinner>
 </div>
@@ -13,7 +13,7 @@
 
   <div fxFlex="100">
     <div>
-      <h3 *ngIf="poop">{{poop.name | uppercase}}</h3>
+      <h3 *ngIf="dish">{{dish.name | uppercase}}</h3>
       <hr>
     </div>
   </div>
@@ -21,16 +21,16 @@
   <!--
       <div fxFlex *ngIf="selectedDish">
   -->
-    <div fxFlex="40" *ngIf="poop">
+    <div fxFlex="40" *ngIf="dish">
       <mat-card>
         <mat-card-header>
           <mat-card-title>
-            <h3>{{poop.name | uppercase}}</h3>
+            <h3>{{dish.name | uppercase}}</h3>
           </mat-card-title>
         </mat-card-header>
-          <img mat-card-image src="{{poop.image}}" alt="{{poop.name}}">
+          <img mat-card-image src="{{dish.image}}" alt="{{dish.name}}">
         <mat-card-content>
-          <p>{{poop.description}}</p>
+          <p>{{dish.description}}</p>
         </mat-card-content>
         <mat-card-actions>
           <span class="flex-spacer">
@@ -44,17 +44,42 @@
       </mat-card>
     </div>
 
-    <div fxFlex="40" *ngIf="poop">
+    <div fxFlex="40" *ngIf="dish">
         <!-- <mat-list rowHeight="200px"> -->
         <mat-list>
           <h3>Comments</h3>
-          <mat-list-item *ngFor="let comment of poop.comments">
+          <mat-list-item *ngFor="let comment of dish.comments">
             <img height="200px" mat-list-avatar src="{{comment.avatar}}" alt="{{comment.author}}">
             <span matLine>{{comment.comment}}</span>
             <span matLine>{{comment.rating}} stars</span>
-            <span matLine>--{{comment.author}} {{comment.date | date}}</span>
+            <span matLine>—{{comment.author}} {{comment.date | date}}</span>
+          </mat-list-item>
+          <mat-list-item *ngIf="feedbackForm.valid">
+            <img height="200px" mat-list-avatar src="{{feedbackForm.value.avatar}}" alt="{{feedbackForm.value.author}}">
+            <span matLine>{{feedbackForm.value.comment}}</span>
+            <span matLine>{{feedbackForm.value.rating}} stars</span>
+            <span matLine>—{{feedbackForm.value.author}} {{feedbackForm.value.date | date}}</span>
           </mat-list-item>
         </mat-list>
+
+        <div class="form-size">
+          <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <p>
+              <mat-form-field>
+                <input matInput formControlName="author" placeholder="Author Name" type="text" required>
+                <mat-error *ngIf="formErrors.author">{{ formErrors.author }}</mat-error>
+              </mat-form-field>
+              <br/>
+              <mat-slider min="1" max="5" step="1" tickInterval="1" thumbLabel matInput formControlName="rating" placeholder="Rating" type="number" required></mat-slider>
+              <br/>
+              <mat-form-field>
+                <input matInput formControlName="comment" placeholder="Comment" type="text" required>
+                <mat-error *ngIf="formErrors.comment">{{ formErrors.comment }}</mat-error>
+              </mat-form-field>
+            </p>
+            <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
+          </form>
+        </div>
     </div>
 
 </div>
