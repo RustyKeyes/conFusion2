@@ -17,7 +17,7 @@
   <div fxFlex *ngIf="dishes">
     <mat-grid-list cols="2" rowHeight="200px">
       <mat-grid-tile *ngFor="let nut of dishes" [routerLink]="['/dishdetail', nut.id]">
-        <img height="200px" mat-list-avatar src={{nut.image}} alt={{nut.name}}>
+        <img height="200px" mat-list-avatar src="{{BaseURL + nut.image}}" alt={{nut.name}}>
         <mat-grid-tile-footer>
           <h1 mat-line> {{nut.name | uppercase}} </h1>
         </mat-grid-tile-footer>

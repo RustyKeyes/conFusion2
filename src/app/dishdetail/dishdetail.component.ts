@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 import { DishService } from '../services/dish.service';
@@ -6,8 +6,6 @@ import { switchMap } from 'rxjs/operators';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-const FACE: string = '/assets/images/alberto.png'
 
 @Component(
   {
@@ -52,10 +50,12 @@ export class DishdetailComponent implements OnInit {
     private dishService: DishService,
     private route: ActivatedRoute,
     private location: Location,
-    private fb: FormBuilder)
-    {
-      this.createForm();
-    }
+    private fb: FormBuilder,
+    @Inject('BaseURL') private BaseURL
+  )
+  {
+    this.createForm();
+  }
 
   ngOnInit() {
     this.dishService.getDishIds()
@@ -88,7 +88,7 @@ export class DishdetailComponent implements OnInit {
       rating: [5, Validators.required],
       comment: ['', Validators.required],
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(140)] ],
-      avatar: [ FACE ],
+      avatar: [ '/images/alberto.png' ],
       date: ['']
     });
 
@@ -129,7 +129,7 @@ export class DishdetailComponent implements OnInit {
           rating: 5,
           author: '',
           comment: '',
-          avatar: FACE,
+          avatar: ['/images/alberto.png'] ,
           date: ''
         }
       );
