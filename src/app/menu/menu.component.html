@@ -1,6 +1,11 @@
-<div  style="margin: auto; text-align: center;"  [hidden]="dishes">
+<div  style="margin: auto; text-align: center;"  [hidden]="dishes || errMess">
   <h4>Loading . . . Please Wait </h4>
   <mat-spinner style="margin:0 auto;" ></mat-spinner>
+</div>
+<div *ngIf="errMess" style="text-align: center;">
+  <h2>OH HOLY SHIT</h2>
+  <img src="https://i2.wp.com/recommendmeanime.com/wp-content/uploads/2016/08/joseph-joestar.png">
+  <h4>{{errMess}}</h4>
 </div>
 
 <div class="container"

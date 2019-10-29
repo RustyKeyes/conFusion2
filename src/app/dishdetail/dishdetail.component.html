@@ -1,7 +1,12 @@
-<div  style="margin: auto; text-align: center;"  [hidden]="dish">
+<div  style="margin: auto; text-align: center;"  [hidden]="dish || errmess">
   <h4>Loading . . . Please Wait </h4>
   <mat-spinner style="margin:0 auto;" ></mat-spinner>
 </div>
+<div fxFlex *ngIf="errMess">
+  <h2>OH HOLY SHIT</h2>
+  <h4>{{errMess}}</h4>
+</div>
+
 
 <div class="container"
     fxLayout="row wrap"
@@ -50,8 +55,18 @@
           <h3>Comments</h3>
           <mat-list-item *ngFor="let comment of dish.comments">
             <img height="200px" mat-list-avatar src="{{BaseURL + comment.avatar}}" alt="{{comment.author}}">
+            <span matLine>
+              <div fxLayoutAlign="left" class="rating star-icon direction-ltr value-{{comment.rating}} color-ok">
+                <div class="star-container">
+                    <div class="star" *ngFor="let star of [1,2,3,4,5]">
+                        <i class="star-empty"></i>
+                        <i class="star-half"></i>
+                        <i class="star-filled"></i>
+                    </div>
+                </div>
+              </div>
+            </span>
             <span matLine>{{comment.comment}}</span>
-            <span matLine>{{comment.rating}} stars</span>
             <span matLine>—{{comment.author}} {{comment.date | date}}</span>
           </mat-list-item>
           <mat-list-item *ngIf="feedbackForm.valid">
@@ -63,18 +78,19 @@
         </mat-list>
 
         <div class="form-size">
+          <h2>Post Feedback</h2>
           <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
             <p>
-              <mat-form-field>
-                <input matInput formControlName="author" placeholder="Author Name" type="text" required>
-                <mat-error *ngIf="formErrors.author">{{ formErrors.author }}</mat-error>
-              </mat-form-field>
-              <br/>
               <mat-slider min="1" max="5" step="1" tickInterval="1" thumbLabel matInput formControlName="rating" placeholder="Rating" type="number" required></mat-slider>
               <br/>
               <mat-form-field>
                 <input matInput formControlName="comment" placeholder="Comment" type="text" required>
                 <mat-error *ngIf="formErrors.comment">{{ formErrors.comment }}</mat-error>
+              </mat-form-field>
+              <br/>
+              <mat-form-field>
+                <input matInput formControlName="author" placeholder="Author Name" type="text" required>
+                <mat-error *ngIf="formErrors.author">{{ formErrors.author }}</mat-error>
               </mat-form-field>
             </p>
             <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>

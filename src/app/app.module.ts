@@ -23,7 +23,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule  } from '@angular/common/http'; //do you need both?
 import { baseURL } from './shared/baseurl';
 
 import 'hammerjs';
@@ -43,6 +43,7 @@ import { LoginComponent } from './login/login.component';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { LeaderService } from './services/leader.service';
     DishService,
     PromotionService,
     LeaderService,
-    { provide: 'BaseURL', useValue: baseURL }
+    { provide: 'BaseURL', useValue: baseURL },
+    ProcessHTTPMsgService
   ],
   bootstrap: [AppComponent]
 })

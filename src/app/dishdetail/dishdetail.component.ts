@@ -38,10 +38,12 @@ export class DishdetailComponent implements OnInit {
   }
 
   dish: Dish;
+  dishcopy: Dish;
   dishIds: string[];
   prev: string;
   next: string;
   av: string;
+  errMess: string;
 
   feedbackForm: FormGroup;
   feedback: Comment;
@@ -65,6 +67,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe(
         (z) => {
           this.dish = z;
+          this.dishcopy = z;
           this.setPrevNext(z.id);
           console.log(z.id);
         }
@@ -121,9 +124,21 @@ export class DishdetailComponent implements OnInit {
   onSubmit() {
     {
       this.feedback = this.feedbackForm.value;
-      this.feedback.date = Date();
+      let date = new Date();
+      this.feedback.date = date.toISOString();
       console.log(this.feedback);
-      this.dish.comments.push(this.feedback);
+      this.dishcopy.comments.push(this.feedback);
+      this.dishService.putDish(this.dishcopy)
+        .subscribe(dish => {
+          this.dish = dish;
+          this.dishcopy = dish;
+        },
+        errmess => {
+          this.dish = null;
+          this.dishcopy = null;
+          this.errMess = <any>errmess;
+        }
+      );
       this.feedbackFormDirective.resetForm(
         {
           rating: 5,
