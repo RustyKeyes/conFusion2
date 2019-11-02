@@ -126,16 +126,13 @@ export class DishdetailComponent implements OnInit {
       this.feedback = this.feedbackForm.value;
       let date = new Date();
       this.feedback.date = date.toISOString();
-      console.log(this.feedback);
       this.dishcopy.comments.push(this.feedback);
       this.dishService.putDish(this.dishcopy)
         .subscribe(dish => {
-          this.dish = dish;
-          this.dishcopy = dish;
+          this.dish = dish; this.dishcopy = dish;
         },
         errmess => {
-          this.dish = null;
-          this.dishcopy = null;
+          this.dish = null; this.dishcopy = null;
           this.errMess = <any>errmess;
         }
       );
