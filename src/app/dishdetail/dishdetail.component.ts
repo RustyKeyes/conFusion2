@@ -6,12 +6,14 @@ import { switchMap } from 'rxjs/operators';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { visibility } from '../animations/app.animation';
 
 @Component(
   {
     selector: 'app-dishdetail',
     templateUrl: './dishdetail.component.html',
-    styleUrls: ['./dishdetail.component.scss']
+    styleUrls: ['./dishdetail.component.scss'],
+    animations: [visibility()] //evaluate why this is not imported like the others
   }
 )
 
@@ -37,6 +39,7 @@ export class DishdetailComponent implements OnInit {
     }
   }
 
+  scale: number[] = Array(5);
   dish: Dish;
   dishcopy: Dish;
   dishIds: string[];
@@ -44,6 +47,8 @@ export class DishdetailComponent implements OnInit {
   next: string;
   av: string;
   errMess: string;
+
+  penis = 'shown';
 
   feedbackForm: FormGroup;
   feedback: Comment;
@@ -63,16 +68,19 @@ export class DishdetailComponent implements OnInit {
     this.dishService.getDishIds()
       .subscribe((x) => this.dishIds = x);
     this.route.params
-      .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe(
-        (z) => {
+      .pipe(switchMap((params: Params) => {
+        this.penis = 'hidden';
+        return this.dishService.getDish(params['id']);
+      }))
+      // if you have only one thing you can eliminate the ; and the "return"
+      .subscribe((z) => {
           this.dish = z;
           this.dishcopy = z;
           this.setPrevNext(z.id);
+          console.log(this.scale.length);
           console.log(z.id);
-        }
-      );
-
+          this.penis = 'shown';
+      });
   }
 
   setPrevNext(dishId: string) {
@@ -88,7 +96,7 @@ export class DishdetailComponent implements OnInit {
 
   createForm() {
     this.feedbackForm = this.fb.group({
-      rating: [5, Validators.required],
+      rating: [this.scale.length, Validators.required],
       comment: ['', Validators.required],
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(140)] ],
       avatar: [ '/images/alberto.png' ],
@@ -138,7 +146,7 @@ export class DishdetailComponent implements OnInit {
       );
       this.feedbackFormDirective.resetForm(
         {
-          rating: 5,
+          rating: this.scale.length,
           author: '',
           comment: '',
           avatar: ['/images/alberto.png'] ,

@@ -26,39 +26,39 @@
   <!--
       <div fxFlex *ngIf="selectedDish">
   -->
-    <div fxFlex="40" *ngIf="dish">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>
-            <h3>{{dish.name | uppercase}}</h3>
-          </mat-card-title>
-        </mat-card-header>
-          <img mat-card-image src="{{BaseURL + dish.image}}" alt="{{dish.name}}">
-        <mat-card-content>
-          <p>{{dish.description}}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <span class="flex-spacer">
-            <button mat-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
-            <button mat-button (click)="goBack()">BACK</button>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-            <button mat-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
-          </span>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-
-    <div fxFlex="40" *ngIf="dish">
+    <div *ngIf="dish">
+      <div fxFlex="40" [@johnson]="penis">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <h3>{{dish.name | uppercase}}</h3>
+            </mat-card-title>
+          </mat-card-header>
+            <img mat-card-image src="{{BaseURL + dish.image}}" alt="{{dish.name}}">
+          <mat-card-content>
+            <p>{{dish.description}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <span class="flex-spacer">
+              <button mat-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
+              <button mat-button (click)="goBack()">BACK</button>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+              <button mat-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
+            </span>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div fxFlex="40">
         <!-- <mat-list rowHeight="200px"> -->
-        <mat-list>
+        <mat-list [@johnson]="penis">
           <h3>Comments</h3>
           <mat-list-item *ngFor="let comment of dish.comments">
             <img height="200px" mat-list-avatar src="{{BaseURL + comment.avatar}}" alt="{{comment.author}}">
             <span matLine>
               <div fxLayoutAlign="left" class="rating star-icon direction-ltr value-{{comment.rating}} color-ok">
                 <div class="star-container">
-                    <div class="star" *ngFor="let star of [1,2,3,4,5]">
+                    <div class="star" *ngFor="let star of scale">
                         <i class="star-empty"></i>
                         <i class="star-half"></i>
                         <i class="star-filled"></i>
@@ -76,12 +76,11 @@
             <span matLine>—{{feedbackForm.value.author}} {{feedbackForm.value.date | date}}</span>
           </mat-list-item>
         </mat-list>
-
-        <div class="form-size">
+        <div class="form-size" [@johnson]="penis">
           <h2>Post Feedback</h2>
           <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
             <p>
-              <mat-slider min="1" max="5" step="1" tickInterval="1" thumbLabel matInput formControlName="rating" placeholder="Rating" type="number" required></mat-slider>
+              <mat-slider min="1" max="{{scale.length}}" step="1" tickInterval="1" thumbLabel matInput formControlName="rating" placeholder="Rating" type="number" required></mat-slider>
               <br/>
               <mat-form-field>
                 <input matInput formControlName="comment" placeholder="Comment" type="text" required>
@@ -96,6 +95,7 @@
             <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
           </form>
         </div>
+      </div>
     </div>
 
 </div>
