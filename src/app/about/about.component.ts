@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Leader } from '../shared/leader';
 import { LeaderService } from '../services/leader.service';
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut, expand } from '../animations/app.animation';
 
 @Component({
   selector: 'app-about',
@@ -11,7 +11,7 @@ import { flyInOut } from '../animations/app.animation';
     '[@flyInOut]': 'true',
     'style': 'display: block;'
   },
-  animations: [ flyInOut() ]
+  animations: [ flyInOut(), expand() ]
 })
 
 export class AboutComponent implements OnInit
@@ -20,7 +20,8 @@ export class AboutComponent implements OnInit
   selectedLeader: Leader;
 
   constructor(
-    private leaderService: LeaderService
+    private leaderService: LeaderService,
+    @Inject('BaseURL') private BaseURL
   ) { }
 
   ngOnInit()

@@ -53,16 +53,21 @@
     </mat-card>
   </div>
 
-  <div  style="margin: auto; text-align: center;"  [hidden]="leaders">
+  <div  style="margin: auto; text-align: center;"  *ngIf="!(leaders || errMess)">
     <h4>Loading . . . Please Wait </h4>
     <mat-spinner style="margin:0 auto;" ></mat-spinner>
   </div>
 
-  <div fxFlex *ngIf="leaders">
+  <div *ngIf="errMess">
+    <h2>There was a problem loading this!</h2>
+    <h4>{{errMess}}</h4>
+  </div>
+
+  <div fxFlex *ngIf="leaders" [@expand]>
     <mat-list>
       <h2>Corporate Leadership</h2>
       <mat-list-item *ngFor="let leader of leaders">
-        <img height="200px" mat-list-avatar src="{{leader.image}}" alt="{{leader.name}}">
+        <img height="200px" mat-list-avatar src="{{BaseURL + leader.image}}" alt="{{leader.name}}">
         <span matLine>{{leader.name}} {{leader.abbr}}</span>
         <span matLine>{{leader.designation}}</span>
         <span matLine>{{leader.description}}</span>

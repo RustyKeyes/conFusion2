@@ -6,14 +6,14 @@ import { switchMap } from 'rxjs/operators';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { visibility } from '../animations/app.animation';
+import { visibility, expand } from '../animations/app.animation';
 
 @Component(
   {
     selector: 'app-dishdetail',
     templateUrl: './dishdetail.component.html',
     styleUrls: ['./dishdetail.component.scss'],
-    animations: [visibility()] //evaluate why this is not imported like the others
+    animations: [visibility(), expand()]
   }
 )
 
@@ -48,7 +48,7 @@ export class DishdetailComponent implements OnInit {
   av: string;
   errMess: string;
 
-  penis = 'shown';
+  initial = 'shown';
 
   feedbackForm: FormGroup;
   feedback: Comment;
@@ -69,7 +69,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe((x) => this.dishIds = x);
     this.route.params
       .pipe(switchMap((params: Params) => {
-        this.penis = 'hidden';
+        this.initial = 'hidden';
         return this.dishService.getDish(params['id']);
       }))
       // if you have only one thing you can eliminate the ; and the "return"
@@ -79,7 +79,7 @@ export class DishdetailComponent implements OnInit {
           this.setPrevNext(z.id);
           console.log(this.scale.length);
           console.log(z.id);
-          this.penis = 'shown';
+          this.initial = 'shown';
       });
   }
 
@@ -90,7 +90,7 @@ export class DishdetailComponent implements OnInit {
     console.log(this.dishIds);
   }
 
-  goBack(): void {
+  goBack():void {
     this.location.back();
   }
 
@@ -137,12 +137,10 @@ export class DishdetailComponent implements OnInit {
       this.dishcopy.comments.push(this.feedback);
       this.dishService.putDish(this.dishcopy)
         .subscribe(dish => {
-          this.dish = dish; this.dishcopy = dish;
+          this.dish = dish;
+          this.dishcopy = dish;
         },
-        errmess => {
-          this.dish = null; this.dishcopy = null;
-          this.errMess = <any>errmess;
-        }
+        errmess => {this.dish = null; this.dishcopy = null; this.errMess = <any>errmess;}
       );
       this.feedbackFormDirective.resetForm(
         {

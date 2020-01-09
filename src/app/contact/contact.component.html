@@ -37,12 +37,11 @@
   </div>
 
   <div fxFlex fxFlexOffset="20px" class="form-size">
-    <h3>Send us your Feedback</h3>
+    <h3>Send us your feedback</h3>
 
     <!--<p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>-->
-    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <form *ngIf="!feedback" [@expand] novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
@@ -83,6 +82,28 @@
       </p>
       <button type="submit" mat-button class="background-primary text-floral-white">Submit</button>
     </form>
+
+    <div *ngIf="feedback && !(confirmation || errMess)">
+      <h4>Saving . . . Please wait </h4>
+      <mat-spinner style="margin:0 auto;"></mat-spinner>
+    </div>
+
+    <div *ngIf="errMess">
+      <h2>There was a problem saving this!</h2>
+      <h4>{{errMess}}</h4>
+    </div>
+
+    <div *ngIf="confirmation" [@expand]>
+      <h4>Message received!</h4>
+      <b>Name:</b> {{confirmation.firstname}} {{confirmation.lastname}}
+      <br/><br/><b>Telephone:</b> {{confirmation.telnum}}
+      <br/><br/><b>Email:</b> {{confirmation.email}}
+      <br/><br/>
+      <b><span *ngIf="confirmation.agree==true && confirmation.contacttype!='None';">We may contact you via {{confirmation.contacttype}}.</span>
+      <span *ngIf="confirmation.agree!=true || confirmation.contacttype=='None';">We won't contact you.</span></b>
+      <br/><br/><b>Message:</b> {{confirmation.message}}
+
+    </div>
   </div>
 
 </div>

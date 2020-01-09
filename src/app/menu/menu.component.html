@@ -1,16 +1,17 @@
-<div  style="margin: auto; text-align: center;"  [hidden]="dishes || errMess">
+<div  style="margin: auto; text-align: center;" *ngIf="!(dishes || errMess)">
   <h4>Loading . . . Please Wait </h4>
   <mat-spinner style="margin:0 auto;" ></mat-spinner>
+  <br/>
 </div>
-<div *ngIf="errMess" style="text-align: center;">
-  <h2>OH HOLY SHIT</h2>
-  <img src="https://i2.wp.com/recommendmeanime.com/wp-content/uploads/2016/08/joseph-joestar.png">
+<div *ngIf="errMess">
+  <h2>There was a problem loading this!</h2>
   <h4>{{errMess}}</h4>
 </div>
 
 <div class="container"
      fxLayout="column"
-     fxLayoutGap="10px">
+     fxLayoutGap="10px"
+     *ngIf="dishes" [@expand]>
 
   <div fxFlex>
     <div>
@@ -19,12 +20,12 @@
     </div>
   </div>
 
-  <div fxFlex *ngIf="dishes">
+  <div fxFlex>
     <mat-grid-list cols="2" rowHeight="200px">
-      <mat-grid-tile *ngFor="let nut of dishes" [routerLink]="['/dishdetail', nut.id]" appHighlight>
-        <img height="200px" mat-list-avatar src="{{BaseURL + nut.image}}" alt={{nut.name}}>
+      <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" appHighlight>
+        <img height="200px" mat-list-avatar src="{{BaseURL + dish.image}}" alt={{dish.name}}>
         <mat-grid-tile-footer>
-          <h1 mat-line> {{nut.name | uppercase}} </h1>
+          <h1 mat-line> {{dish.name | uppercase}} </h1>
         </mat-grid-tile-footer>
       </mat-grid-tile>
     </mat-grid-list>

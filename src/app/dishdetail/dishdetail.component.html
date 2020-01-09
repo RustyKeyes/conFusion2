@@ -1,9 +1,9 @@
-<div  style="margin: auto; text-align: center;"  [hidden]="dish || errmess">
+<div  style="margin: auto; text-align: center;"  *ngIf="!(dish || errmess)">
   <h4>Loading . . . Please Wait </h4>
   <mat-spinner style="margin:0 auto;" ></mat-spinner>
 </div>
-<div fxFlex *ngIf="errMess">
-  <h2>OH HOLY SHIT</h2>
+<div *ngIf="errMess">
+  <h2>There was a problem loading this!</h2>
   <h4>{{errMess}}</h4>
 </div>
 
@@ -23,11 +23,8 @@
     </div>
   </div>
 
-  <!--
-      <div fxFlex *ngIf="selectedDish">
-  -->
     <div *ngIf="dish">
-      <div fxFlex="40" [@johnson]="penis">
+      <div fxFlex="40" [@visibility]="initial" [@expand]>
         <mat-card>
           <mat-card-header>
             <mat-card-title>
@@ -51,7 +48,7 @@
       </div>
       <div fxFlex="40">
         <!-- <mat-list rowHeight="200px"> -->
-        <mat-list [@johnson]="penis">
+        <mat-list [@visibility]="initial" [@expand]>
           <h3>Comments</h3>
           <mat-list-item *ngFor="let comment of dish.comments">
             <img height="200px" mat-list-avatar src="{{BaseURL + comment.avatar}}" alt="{{comment.author}}">
@@ -76,7 +73,7 @@
             <span matLine>—{{feedbackForm.value.author}} {{feedbackForm.value.date | date}}</span>
           </mat-list-item>
         </mat-list>
-        <div class="form-size" [@johnson]="penis">
+        <div class="form-size" [@visibility]="initial" [@expand]>
           <h2>Post Feedback</h2>
           <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
             <p>

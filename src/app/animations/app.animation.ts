@@ -1,7 +1,7 @@
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 export function visibility() {
-  return trigger('johnson',
+  return trigger('visibility',
     [
       state('shown',
         style(
@@ -35,7 +35,7 @@ export function flyInOut(){
           }
         )
       ),
-      transition('void => *', //why brackets?
+      transition('void => *',
         [
           style(
             {
@@ -59,4 +59,20 @@ export function flyInOut(){
       )
     ]
   )
+}
+
+export function expand(){
+  return trigger('expand', [
+    state('*', style({
+      opacity: 1,
+      transform: 'translateX(0)'
+    })),
+    transition('void => *', [
+      style({
+        transform: 'translateY(-50%)',
+        opacity: 0
+      }),
+      animate('200ms ease-in')
+    ])
+  ]);
 }
