@@ -104,12 +104,12 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  clear(x){
+  clear(){
     setTimeout(() => {
       this.feedback = null;
       this.confirmation = null;
       this.errMess = null;
-    }, 3000)
+    }, 5000)
   }
 
   onSubmit(){
